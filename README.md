@@ -1,6 +1,9 @@
 Slightly Functional - CommonMark Tools
 ======================================
 
+An experiment in F#
+-------------------
+
 Purpose
 -------
 
@@ -10,6 +13,11 @@ Initial Goal
 ------------
 
 Provide functions to convert a supplied CommonMark document to well formed HTML.
+
+Later Goals
+-----------
+
+- Provide a CommonMark linter
 
 What is CommonMark?
 -------------------
