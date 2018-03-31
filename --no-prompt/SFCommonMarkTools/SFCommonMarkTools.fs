@@ -16,9 +16,7 @@ module HtmlTools =
             text : string
         }
 
-    type ConvertMarkDownToHtml = MarkdownDocument -> HtmlDocument
+    type ConvertMarkdownToHtml = MarkdownDocument -> HtmlDocument
 
-    // let docToHtml doc = 
-    //      "<html><body>" + doc + "</body></html>"
 
     
