@@ -34,17 +34,11 @@ module HtmlTools =
     type DocumentTree = 
         {
             Items : List<DocumentTreeItem>
-        }    
+    }    
 
     type ParseMarkdownDocument = MarkdownDocument -> DocumentTree
     type DocumentTreeToHtml = DocumentTree -> HtmlDocument
     type ConvertMarkdownToHtml = MarkdownDocument -> HtmlDocument
-
-    let convertMarkdownToHtml : ConvertMarkdownToHtml = 
-        fun markdownDocument ->
-            let parseMarkdownDocument 
-
-    
 
 
 
