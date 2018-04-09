@@ -1,14 +1,9 @@
 namespace SFCommonMarkTools
 
-open System.Windows.Forms
-open System.Xml.XPath
-open System.Windows.Forms
-open System.Configuration
 type SFCommonMarkTools() = 
     member this.X = "F#"
 
-module HtmlTools =
-
+module SFCommonMarkTypes =
     type MarkdownDocument = 
         {
             text : string;
@@ -17,10 +12,11 @@ module HtmlTools =
     type HtmlDocument = 
         {
             text : string
-        }
-
+        } 
+        
     type DocumentTreeItemType = 
-        H1 | H2 | H3 | H4 | H5 | H6 | HR | CODE | HTML | LINK |BLANK | BLOCKQUOTE | P
+         H1 | H2 | H3 | H4 | H5 | H6 | HR | CODE | HTML | LINK |BLANK | BLOCKQUOTE | P
+
 
 
     type DocumentTreeItem = 
@@ -34,14 +30,25 @@ module HtmlTools =
     type DocumentTree = 
         {
             Items : List<DocumentTreeItem>
-    }    
+    }        
+
+module MarkdownTools =
+
+    open SFCommonMarkTypes
+
+    type GetMarkdownDocumentFromFile = string -> MarkdownDocument
 
     type ParseMarkdownDocument = MarkdownDocument -> DocumentTree
+
+
+module HtmlTools =   
+
+    open SFCommonMarkTypes    
+
     type DocumentTreeToHtml = DocumentTree -> HtmlDocument
     type ConvertMarkdownToHtml = MarkdownDocument -> HtmlDocument
-
-
-
+    
+module FunctionExperiments =
     // Combining Functions
     let add x y = x + y
     let times x y = x * y
