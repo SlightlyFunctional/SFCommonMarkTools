@@ -15,7 +15,7 @@ module FileTools =
 module SFCommonMarkTypes =
     type MarkdownDocument = 
         {
-            lines: seq<string>;
+            lines: seq<int * string>;
         }
     
     type HtmlDocument = 
@@ -24,7 +24,7 @@ module SFCommonMarkTypes =
         } 
         
     type DocumentTreeItemType = 
-         H1 | H2 | H3 | H4 | H5 | H6 | HR | CODE | HTML | LINK |BLANK | BLOCKQUOTE | P
+         H1 | H2 | H3 | H4 | H5 | H6 | HR | CODE | HTML | LINK | BULLET |BLANK | BLOCKQUOTE | P
 
 
 
@@ -33,7 +33,7 @@ module SFCommonMarkTypes =
             Id : int;
             ParentId: option<int>
             Type: DocumentTreeItemType;
-            Lines: seq<string>
+            Lines: seq<int * string>
         }   
 
     type DocumentTree = 
@@ -46,13 +46,41 @@ module MarkdownTools =
 
     type GetMarkdownDocumentFromFile = string -> MarkdownDocument
 
-    type GetMarkdownFromLines = seq<string> -> MarkdownDocument
+    type GetMarkdownFromLines = seq<int * string> -> MarkdownDocument
+
+    type GetLineType = string -> DocumentTreeItemType
 
     let getMarkdownFromLines : GetMarkdownFromLines =
         fun lines -> {lines = lines}
 
+    let (|Prefix|_|) (p:string) (s:string) =
+        if s.StartsWith(p) then
+            Some(s.Substring(p.Length))
+        else
+            None    
+
+    let (|EmptySeq|_|) a = if Seq.isEmpty a then Some () else   None
+
+    let getLineType : GetLineType =
+        fun lineText -> 
+            match lineText with
+            | EmptySeq -> BLANK
+            | Prefix "# " rest -> H1
+            | Prefix "## " rest -> H2
+            | Prefix "### " rest -> H3
+            | Prefix "#### " rest -> H4
+            | Prefix "##### " rest -> H5
+            | Prefix "###### " rest -> H6
+            | Prefix ">> " rest -> BLOCKQUOTE
+            | Prefix "- " rest -> BULLET
+            | Prefix "* " rest -> BULLET
+            | Prefix "+ " rest -> BULLET
+            | _ -> P
+            
+
     let getMarkdownDocumentFromFile : GetMarkdownDocumentFromFile =
         FileTools.readLines 
+        >> Seq.mapi(fun i x -> i,x)
         >> getMarkdownFromLines    
 
     type ParseMarkdownDocument = MarkdownDocument -> DocumentTree
@@ -62,9 +90,9 @@ module MarkdownTools =
             let items = 
                 markdownDoc.lines |> Seq.map(fun mdl -> 
                     {
-                        Id = 1;
+                        Id = (fst mdl) + 1;
                         ParentId =  None;
-                        Type = H1;
+                        Type = getLineType (snd mdl) ;
                         Lines = [mdl]
                     }) 
             {
