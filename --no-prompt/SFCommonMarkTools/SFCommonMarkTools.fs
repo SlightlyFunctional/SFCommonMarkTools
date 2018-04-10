@@ -3,15 +3,24 @@ namespace SFCommonMarkTools
 type SFCommonMarkTools() = 
     member this.X = "F#"
 
+module FileTools = 
+    open System.IO 
+
+    let readLines (filePath:string) = seq { 
+        use sr = new StreamReader (filePath) 
+        while not sr.EndOfStream do 
+        yield sr.ReadLine () 
+    } 
+
 module SFCommonMarkTypes =
     type MarkdownDocument = 
         {
-            text : string;
+            lines: seq<string>;
         }
     
     type HtmlDocument = 
         {
-            text : string
+            lines: seq<string>;
         } 
         
     type DocumentTreeItemType = 
@@ -23,22 +32,45 @@ module SFCommonMarkTypes =
         {
             Id : int;
             ParentId: option<int>
-            Type: List<DocumentTreeItemType>;
-            Line: string
+            Type: DocumentTreeItemType;
+            Lines: seq<string>
         }   
 
     type DocumentTree = 
         {
-            Items : List<DocumentTreeItem>
+            Items : seq<DocumentTreeItem>
     }        
 
 module MarkdownTools =
-
     open SFCommonMarkTypes
 
     type GetMarkdownDocumentFromFile = string -> MarkdownDocument
 
+    type GetMarkdownFromLines = seq<string> -> MarkdownDocument
+
+    let getMarkdownFromLines : GetMarkdownFromLines =
+        fun lines -> {lines = lines}
+
+    let getMarkdownDocumentFromFile : GetMarkdownDocumentFromFile =
+        FileTools.readLines 
+        >> getMarkdownFromLines    
+
     type ParseMarkdownDocument = MarkdownDocument -> DocumentTree
+
+    let parseMarkdownDocument : ParseMarkdownDocument =
+        fun markdownDoc -> 
+            let items = 
+                markdownDoc.lines |> Seq.map(fun mdl -> 
+                    {
+                        Id = 1;
+                        ParentId =  None;
+                        Type = H1;
+                        Lines = [mdl]
+                    }) 
+            {
+                Items = items
+            }            
+
 
 
 module HtmlTools =   
