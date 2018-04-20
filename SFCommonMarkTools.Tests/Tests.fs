@@ -25,7 +25,7 @@ let ``Line Type is H1`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.H1, result)
+    Assert.Equal(DocumentTreeBlockType.H1, result)
     
 [<Fact>]
 let ``Line Type is H2`` ()=
@@ -33,7 +33,7 @@ let ``Line Type is H2`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.H2, result)
+    Assert.Equal(DocumentTreeBlockType.H2, result)
     
 [<Fact>]
 let ``Line Type is H3`` ()=
@@ -41,7 +41,7 @@ let ``Line Type is H3`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.H3, result)
+    Assert.Equal(DocumentTreeBlockType.H3, result)
 
 [<Fact>]
 let ``Line Type is H4`` ()=
@@ -49,7 +49,7 @@ let ``Line Type is H4`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.H4, result)
+    Assert.Equal(DocumentTreeBlockType.H4, result)
     
 [<Fact>]
 let ``Line Type is H5`` ()=
@@ -57,7 +57,7 @@ let ``Line Type is H5`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.H5, result)
+    Assert.Equal(DocumentTreeBlockType.H5, result)
     
 [<Fact>]
 let ``Line Type is H6`` ()=
@@ -65,7 +65,7 @@ let ``Line Type is H6`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.H6, result)
+    Assert.Equal(DocumentTreeBlockType.H6, result)
 
 [<Fact>]
 let ``Line Type is hr  : ---`` ()=
@@ -73,7 +73,7 @@ let ``Line Type is hr  : ---`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.HR, result)
+    Assert.Equal(DocumentTreeBlockType.HR, result)
 
 [<Fact>]
 let ``Line Type is hr  : ***`` ()=
@@ -81,7 +81,7 @@ let ``Line Type is hr  : ***`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.HR, result)
+    Assert.Equal(DocumentTreeBlockType.HR, result)
 
 [<Fact>]
 let ``Line Type is blank`` ()=
@@ -89,7 +89,7 @@ let ``Line Type is blank`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.BLANK, result)
+    Assert.Equal(DocumentTreeBlockType.BLANK, result)
 
 [<Fact>]
 let ``Line Type is blockquote`` ()=
@@ -97,7 +97,7 @@ let ``Line Type is blockquote`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.BLOCKQUOTE, result)
+    Assert.Equal(DocumentTreeBlockType.BLOCKQUOTE, result)
 
 [<Fact>]
 let ``Line Type is p`` ()=
@@ -105,7 +105,7 @@ let ``Line Type is p`` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.P, result)
+    Assert.Equal(DocumentTreeBlockType.P, result)
 
 [<Fact>]
 let ``Line Type is Bullet  : - `` ()=
@@ -113,7 +113,7 @@ let ``Line Type is Bullet  : - `` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.BULLET, result)
+    Assert.Equal(DocumentTreeBlockType.BULLET, result)
 
 [<Fact>]
 let ``Line Type is Bullet  : + `` ()=
@@ -121,7 +121,7 @@ let ``Line Type is Bullet  : + `` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.BULLET, result)
+    Assert.Equal(DocumentTreeBlockType.BULLET, result)
 
 [<Fact>]
 let ``Line Type is Bullet  : * `` ()=
@@ -129,4 +129,4 @@ let ``Line Type is Bullet  : * `` ()=
 
     let result = MarkdownTools.getLineType line
 
-    Assert.Equal(DocumentTreeItemType.BULLET, result)
+    Assert.Equal(DocumentTreeBlockType.BULLET, result)

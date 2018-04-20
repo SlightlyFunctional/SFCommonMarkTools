@@ -23,22 +23,22 @@ module SFCommonMarkTypes =
             lines: seq<string>;
         } 
         
-    type DocumentTreeItemType = 
+    type DocumentTreeBlockType = 
          H1 | H2 | H3 | H4 | H5 | H6 | HR | CODE | HTML | LINK | BULLET |BLANK | BLOCKQUOTE | P
 
 
 
-    type DocumentTreeItem = 
+    type DocumentTreeBlock = 
         {
             Id : int;
             ParentId: option<int>
-            Type: DocumentTreeItemType;
+            Type: DocumentTreeBlockType;
             Lines: seq<int * string>
         }   
 
     type DocumentTree = 
         {
-            Items : seq<DocumentTreeItem>
+            Items : seq<DocumentTreeBlock>
     }        
 
 module MarkdownTools =
@@ -48,7 +48,7 @@ module MarkdownTools =
 
     type GetMarkdownFromLines = seq<int * string> -> MarkdownDocument
 
-    type GetLineType = string -> DocumentTreeItemType
+    type GetLineType = string -> DocumentTreeBlockType
 
     let getMarkdownFromLines : GetMarkdownFromLines =
         fun lines -> {lines = lines}
