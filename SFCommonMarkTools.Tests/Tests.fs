@@ -17,7 +17,7 @@ let ``Get Document Tree From File`` () =
     let markdownDoc = testFile |> Seq.mapi(fun i x -> i,x) |> MarkdownTools.getMarkdownFromLines 
 
     let docTree = MarkdownTools.parseMarkdownDocument markdownDoc
-    Assert.True(Seq.length docTree.Items > 0)
+    Assert.True(Seq.length docTree.Blocks > 0)
 
 [<Fact>]
 let ``Line Type is H1`` ()=

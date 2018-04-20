@@ -38,7 +38,7 @@ module SFCommonMarkTypes =
 
     type DocumentTree = 
         {
-            Items : seq<DocumentTreeBlock>
+            Blocks : seq<DocumentTreeBlock>
     }        
 
 module MarkdownTools =
@@ -89,16 +89,18 @@ module MarkdownTools =
 
     let parseMarkdownDocument : ParseMarkdownDocument =
         fun markdownDoc -> 
-            let items = 
-                markdownDoc.lines |> Seq.map(fun mdl -> 
+            let blocks = 
+                markdownDoc.lines 
+                |> Seq.filter (fun mdl -> snd mdl |> String.length > 0)
+                |> Seq.map(fun mdl -> 
                     {
                         Id = (fst mdl) + 1;
                         ParentId =  None;
                         Type = getLineType (snd mdl) ;
                         Lines = [mdl]
-                    }) 
+                    })              
             {
-                Items = items
+                Blocks = blocks
             }            
 
 
